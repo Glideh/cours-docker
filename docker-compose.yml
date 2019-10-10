@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test
+    ports:
+      - 3306:3306
+  php:
+    image: registry.gprod.net:443/test/php
+    build: php
+    volumes:
+      - ./php:/php
+    depends_on:
+      - db
+    command: php /php/test.php
